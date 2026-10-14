@@ -1,0 +1,33 @@
+{
+  "name": "@commerce/plugin-seedream",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "commerce": {
+    "manifestVersion": 1,
+    "id": "official.seedream",
+    "title": "Seedream 图像设计",
+    "description": "基于 Seedream 5.0 Pro 多模态图像生成模型，支持高画质文生图与图生图编辑",
+    "category": "图片处理",
+    "api": "^1.2.0",
+    "ui": "ui/index.html",
+    "releaseNotes": "首版：接入 Seedream 5.0 Pro 多模态图像生成模型，支持高画质文生图与多模态参考生图，提供 2K/1K 分辨率与输出格式选项，图片实时生成与保存。",
+    "permissions": {
+      "files": true,
+      "credentials": [
+        "volcengine-ark-key"
+      ],
+      "network": [
+        "https://ark.cn-beijing.volces.com"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "pack": "node scripts/pack-plugin.mjs"
+  },
+  "dependencies": {
+    "@commerce/plugin-sdk": "file:vendor/commerce-plugin-sdk-1.2.0.tgz"
+  },
+  "license": "MIT"
+}
