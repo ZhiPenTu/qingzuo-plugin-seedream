@@ -7,85 +7,91 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <header>
-    <p class="eyebrow">图片处理</p>
-    <h1>Seedream 5.0 Pro 图像设计</h1>
-    <p>接入火山方舟 Seedream 5.0 Pro 多模态图像生成模型，支持高画质文生图与多模态参考生图。生成任务在云端处理，使用您自己的火山方舟调用额度。</p>
+<main class="tool-page">
+  <header class="page-head">
+    <div>
+      <h1>Seedream 图像设计</h1>
+      <p>文生图与参考图设计，使用你的火山方舟额度。</p>
+    </div>
+    <span class="mode-badge">图像</span>
   </header>
 
   <section class="card settings">
     <div class="settings-title-row">
-      <label for="key">火山方舟 API 密钥 (API Key)</label>
+      <label for="key">火山方舟 API 密钥</label>
       <a href="https://console.volcengine.com/ark/region:ark+cn-beijing/apiKey" target="_blank" rel="noopener noreferrer" class="link-btn">获取 API Key ↗</a>
     </div>
     <div class="row">
       <input type="password" id="key" autocomplete="off" placeholder="输入火山方舟 API Key，安全保存在系统凭据库">
       <button id="save-key">保存密钥</button>
       <button id="clear-key" class="secondary">清除密钥</button>
-      <a href="https://console.volcengine.com/ark/region:ark+cn-beijing/apiKey" target="_blank" rel="noopener noreferrer" class="button-link secondary">获取 API Key ↗</a>
     </div>
     <p id="key-status" role="status">正在检查密钥状态…</p>
   </section>
 
-  <section class="card">
-    <div class="form-group">
-      <label for="mode">生成模式</label>
-      <select id="mode">
-        <option value="t2i">文生图（纯文本提示词直接生成）</option>
-        <option value="i2i">图生图（上传参考图片辅助设计）</option>
-      </select>
-    </div>
-
-    <div class="form-group" id="image-group" hidden>
-      <label>参考图片</label>
-      <div class="row">
-        <button id="pick-image" class="secondary" type="button">选择参考图片</button>
-        <button id="clear-image" class="secondary" type="button" hidden>移除图片</button>
-      </div>
-      <img id="ref-image-preview" class="thumb-preview" alt="参考图缩略图" hidden>
-      <p id="image-info">支持 JPG、PNG、WebP，大小不超过 20 MB。</p>
-    </div>
-
-    <div class="form-group">
-      <label for="prompt">图像设计提示词</label>
-      <textarea id="prompt" placeholder="描述画面主体、艺术风格、构图、光影与材质细节（例如：极简白底电商静物摄影，极具质感的磨砂玻璃香水瓶，柔和晨光漫射，超高清 8k 画质）"></textarea>
-    </div>
-
-    <div class="grid-2">
-      <div class="form-group">
-        <label for="size">生成分辨率档位</label>
-        <select id="size">
-          <option value="2K" selected>2K (超高清画质，推荐)</option>
-          <option value="1K">1K (高清快速)</option>
-          <option value="2048x2048">2048x2048 (1:1 方形)</option>
-          <option value="1024x1024">1024x1024 (1:1 高清)</option>
-        </select>
+  <div class="tool-grid">
+    <section class="card composer">
+      <div class="section-head">
+        <div><h2>设计参数</h2><p>选择模式并描述画面。</p></div>
       </div>
       <div class="form-group">
-        <label for="format">输出图片格式</label>
-        <select id="format">
-          <option value="png" selected>PNG (无损画质 / 支持透明)</option>
-          <option value="jpeg">JPEG (高压缩比)</option>
+        <label for="mode">生成模式</label>
+        <select id="mode">
+          <option value="t2i">文生图</option>
+          <option value="i2i">参考图设计</option>
         </select>
       </div>
-    </div>
 
-    <div class="actions">
-      <button id="run">开始生成图像</button>
-      <button id="cancel" class="secondary" disabled>取消</button>
-      <button id="save-image" class="secondary" disabled>保存图片</button>
-    </div>
-    <p id="status" role="status">请配置 API 密钥并输入提示词后开始生成。</p>
-  </section>
+      <div class="form-group" id="image-group" hidden>
+        <label>参考图片</label>
+        <div class="row">
+          <button id="pick-image" class="secondary" type="button">选择参考图片</button>
+          <button id="clear-image" class="secondary" type="button" hidden>移除图片</button>
+        </div>
+        <img id="ref-image-preview" class="thumb-preview" alt="参考图缩略图" hidden>
+        <p id="image-info">支持 JPG、PNG、WebP，最大 20 MB。</p>
+      </div>
 
-  <section class="card">
-    <label>生成结果预览</label>
-    <div class="preview-container">
-      <img id="image-result" alt="生成图像结果" hidden>
-      <div id="preview-placeholder" class="preview-placeholder">生成完成后即可在此在线预览高清图像</div>
-    </div>
-  </section>
+      <div class="form-group">
+        <label for="prompt">图像提示词</label>
+        <textarea id="prompt" placeholder="例如：极简白底电商静物摄影，磨砂玻璃香水瓶，柔和晨光，高清质感。"></textarea>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="size">分辨率</label>
+          <select id="size">
+            <option value="2K" selected>2K · 推荐</option>
+            <option value="1K">1K · 快速</option>
+            <option value="2048x2048">2048 × 2048 · 方形</option>
+            <option value="1024x1024">1024 × 1024 · 高清</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="format">输出格式</label>
+          <select id="format">
+            <option value="png" selected>PNG · 无损</option>
+            <option value="jpeg">JPEG · 压缩</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="run">开始生成</button>
+        <button id="cancel" class="secondary" disabled>取消</button>
+        <button id="save-image" class="secondary" disabled>保存图片</button>
+      </div>
+      <p id="status" role="status">配置密钥并输入提示词后开始生成。</p>
+    </section>
+
+    <section class="card preview-card">
+      <div class="section-head"><div><h2>结果</h2><p>生成后可在此检查并保存。</p></div></div>
+      <div class="preview-container">
+        <img id="image-result" alt="生成图像结果" hidden>
+        <div id="preview-placeholder" class="preview-placeholder"><span class="preview-mark" aria-hidden="true">□</span><strong>还没有图像</strong><span>生成结果会显示在这里</span></div>
+      </div>
+    </section>
+  </div>
 </main>
 <script type="module" src="app.mjs"></script>
 </body>
